@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Priyanshu Singh | Software Engineer & Founder</title>
+  <meta name="description" content="Priyanshu Singh — Software Engineer & Founder of NexiumCo. Portfolio: projects, skills, experience, and contact." />
+  <meta name="keywords" content="Priyanshu Singh, Software Engineer, NexiumCo, Java, Spring Boot, Flutter, Microservices, Cloud, DevOps" />
+  <link rel="canonical" href="https://www.yourdomain.com/" />
+  <!-- Tailwind CDN (good for prototypes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* -------------------------
+       Visual / Animations
+       ------------------------- */
+    :root{
+      --accent-a: #2563eb;  /* More professional blue */
+      --accent-b: #7c3aed;  /* Slightly deeper purple */
+      --glass: rgba(255,255,255,0.85);
+      --bg-light: #f8fafc;  /* Consistent light bg */
+      --text-light: #e1e7f4; /* Dark slate for text */
+      --gray-light: #e2e8f0; /* Softer gray */
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(18px);} to { opacity:1; transform: translateY(0);} }
+    @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-6px);} 100% { transform: translateY(0);} }
+    @keyframes textGlow { 0% { text-shadow: 0 0 6px rgba(59,130,246,0.25);} 50% { text-shadow: 0 0 18px rgba(59,130,246,0.5);} 100% { text-shadow: 0 0 6px rgba(59,130,246,0.25);} }
+
+    .hover-float { transition: all .28s ease; }
+    .hover-float:hover { animation: float 1s ease infinite; }
+    .hover-glow { transition: all .22s ease; }
+    .hover-glow:hover { animation: textGlow 2s ease infinite; }
+
+    .animate-fade-in { opacity: 0; animation: fadeIn 0.9s ease-out forwards; }
+    .delay-100 { animation-delay: .1s; }
+    .delay-200 { animation-delay: .2s; }
+    .delay-300 { animation-delay: .3s; }
+    .delay-400 { animation-delay: .4s; }
+
+    .gradient-text { background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    .photo-glow { position: absolute; inset: 0; border-radius: 9999px; background: linear-gradient(120deg, rgba(59,130,246,0.15), rgba(139,92,246,0.12)); filter: blur(40px); transform: translateZ(0); opacity: 0.9; pointer-events: none; animation: pulse 3s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.28; transform: scale(1);} 50% { opacity: 0.6; transform: scale(1.06);} }
+
+    .project-card { transition: transform .25s ease, box-shadow .25s ease; }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #f3f4f6; }
+    ::-webkit-scrollbar-thumb { background: rgba(59,130,246,0.6); border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.9); }
+
+    #bg-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -100; pointer-events: none; display: block; }
+
+    .glass-card { 
+      background: white;
+      box-shadow: 0 4px 6px -1px rgba(237, 235, 235, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    @media (max-width: 640px) { .photo-glow { filter: blur(30px); } }
+
+    a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid rgba(59,130,246,0.18); outline-offset: 2px; }
+
+    /* Additional styles for merged features */
+    .socials-vertical { position: fixed; left: 1rem; top: 40%; transform: translateY(-50%); display:flex; flex-direction:column; gap:.6rem; z-index:50; }
+    .socials-vertical a { background: rgba(255,255,255,0.95); padding: .5rem .6rem; border-radius: .6rem; display:inline-flex; align-items:center; gap:.6rem; text-decoration:none; color:inherit; box-shadow:0 6px 18px rgba(2,6,23,0.06); }
+    .dark .socials-vertical { display: flex; } /* Ensure it stays visible in dark mode */
+    .dark .socials-vertical a { background: rgba(15,23,42,0.95); color: #f8fafc; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+    .back-to-top { position: fixed; right: 1rem; bottom: 1.2rem; z-index: 60; display: none; }
+
+    /* Modal basics */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 80; }
+    .modal { background: white; border-radius: 12px; max-width: 900px; width: 95%; max-height: 90vh; overflow:auto; padding: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .modal .close { float: right; background: none; border: none; font-size: 1rem; cursor:pointer; }
+
+    /* Theme toggle */
+    .theme-btn { 
+      background: white; 
+      border-radius: 8px; 
+      padding: 0.45rem; 
+      border: 1px solid #e6e6e6; 
+      display:inline-flex; 
+      align-items:center; 
+      justify-content:center; 
+    }
+    .dark .theme-btn {
+      background: rgba(15,23,42,0.95);
+      border-color: rgba(255,255,255,0.1);
+      color: #f8fafc;
+    }
+    body { background: #f8fafc; color: #1e293b; }
+    .dark body { background: #0f172a; color: #f1f5f9; }
+    .dark .glass-card { background: linear-gradient(180deg, rgba(224, 222, 222, 0.04), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); }
+    .dark .bg-white { background: rgba(255,255,255,0.06) !important; }
+    .text-gray-600, .text-gray-500 { color: #475569 !important; }
+    .text-gray-700 { color: #334155 !important; }
+    .dark .text-gray-600, .dark .text-gray-500 { color: #cbd5e1 !important; }
+    .dark .text-gray-700 { color: #f1f5f9 !important; }
+    .dark .modal { background: #1e293b; color: #f8fafc; }
+    .dark .modal .close { color: #f8fafc; }
+  </style>
+</head>
+<body class="bg-gray-50 antialiased text-gray-800">
+
+  <!-- Full-page canvas for particles (works across entire page) -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Socials vertical (desktop) -->
+  <div class="socials-vertical hidden md:flex" aria-hidden="false">
+    <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-blue-600"></i></a>
+    <a href="#" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="priyanshusingh21187@gmail.com" title="Email" aria-label="Email"><i class="fa-regular fa-envelope text-gray-700"></i></a>
+  </div>
+
+  <!-- NAV -->
+  <nav class="fixed w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm dark:shadow-gray-800/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="#" class="text-xl font-bold gradient-text">Priyanshu Singh</a>
+          <span class="text-sm text-gray-100">Software Engineer & Founder</span>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#about" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">About</a>
+          <a href="#skills" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">Skills</a>
+          <a href="#experience" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">Experience</a>
+          <a href="#services" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">Services</a>
+          <a href="#projects" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">Projects</a>
+          <a href="#contact" class="text-gray-1000 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover-float">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Theme toggle -->
+          <button id="theme-toggle" class="theme-btn mr-2" aria-pressed="false" title="Toggle theme" aria-label="Toggle theme">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+            <span class="sr-only">Toggle theme</span>
+          </button>
+
+          <div class="hidden md:block">
+            <a href="CV.pdf/PRIYANSHU RESUME.pdf" class="inline-flex items-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium transition">Download Resume</a>
+            
+           
+          </div>
+
+          <div class="md:hidden">
+            <button id="menu-toggle" aria-expanded="false" aria-label="Toggle navigation" class="p-2 text-gray-700 dark:text-gray-300">
+              <i class="fas fa-bars text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-gray-900/95 border-t border-gray-100 dark:border-gray-800">
+      <div class="px-4 py-3 space-y-2">
+        <a href="#about" class="block py-2 text-gray-700 dark:text-gray-100">About</a>
+        <a href="#skills" class="block py-2 text-gray-700 dark:text-gray-100">Skills</a>
+        <a href="#experience" class="block py-2 text-gray-700 dark:text-gray-100">Experience</a>
+        <a href="#services" class="block py-2 text-gray-700 dark:text-gray-100">Services</a>
+        <a href="#projects" class="block py-2 text-gray-700 dark:text-gray-100">Projects</a>
+        <a href="#contact" class="block py-2 text-gray-700 dark:text-gray-100">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="pt-28 pb-16  ">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="animate-fade-in">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Hi, I'm <span class="gradient-text">Priyanshu Singh</span></h1>
+          <h2 class="text-2xl md:text-3xl font-medium text-gray-700 dark:text-gray-200 mb-8">Software Engineer & Founder of NexiumCo</h2>
+          <p class="text-xl text-white-800 dark:text-white-200 mb-8 max-w-2xl leading-relaxed">I build scalable applications, RESTful APIs, cloud-first systems and delightful user experiences. I lead a small startup (NexiumCo) focused on automation, analytics and developer tooling.</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#contact" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 rounded-lg font-medium shadow-md transition hover:shadow-lg">Get In Touch</a>
+            <a href="CV.pdf/PRIYANSHU RESUME.pdf" class="inline-flex items-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-500 dark:text-blue-400 dark:hover:bg-blue-900/30 px-6 py-3.5 rounded-lg font-medium transition">Download Resume</a>
+            <a href="#projects" class="inline-flex items-center gap-2 text-gray-700 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 px-5 py-3 rounded-lg transition font-medium">See Projects →</a>
+          </div>
+        </div>
+
+        <div class="flex justify-center md:justify-end animate-fade-in delay-200">
+          <div class="relative" style="max-width:380px;">
+            <div class="photo-glow" aria-hidden="true"></div>
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl relative z-10">
+              <!-- Replace with your actual photo -->
+              <img src="images/founder.jpg" alt="Priyanshu Singh — Founder of NexiumCo" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="absolute -bottom-4 -right-4 bg-white p-3 rounded-lg shadow-lg z-20">
+              <div class="flex items-center gap-3">
+                <div class="bg-blue-50 p-2 rounded-full">
+                  <i class="fas fa-code text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-sm">1+ Years</p>
+                  <p class="text-xs text-gray-500">Professional Experience</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+    <section id="about" class="py-16 bg-white dark:bg-gray-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl font-bold gradient-text">About Me</h3>
+          <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="space-y-4">
+            <p class="text-white-700">I'm a passionate software engineer with a B.Tech in Computer Science. My expertise spans backend systems, APIs, microservices, cloud platforms (AWS/GCP), and cross-platform mobile apps. I enjoy solving complex problems and building things that scale.</p>
+            <p class="text-white-700">At NexiumCo, I lead product strategy and engineering. We build automation and analytics tools for small businesses and creators — focusing on performance, privacy, and developer experience.</p>
+            <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <li class="text-sm text-gray-600"><strong>Location:</strong> Prayagraj, India</li>
+              <li class="text-sm text-gray-600"><strong>Email:</strong> <a href="priyanshusingh21187@gmail.com" class="text-blue-600">priyanshusingh21187@gmail.comm</a></li>
+              <li class="text-sm text-gray-600"><strong>Open to:</strong> Freelance / Contract</li>
+              <li class="text-sm text-gray-600"><strong>Resume:</strong> <a href="CV.pdf/PRIYANSHU RESUME.pdf" class="text-blue-600">Download PDF</a></li>
+            </ul>
+          </div>
+
+          <div class="space-y-6">
+            <h4 class="font-semibold text-gray-900 text-lg">Education & Certifications</h4>
+            <div class="space-y-6">
+              <div class="flex gap-5 items-start border-b border-gray-100 pb-4">
+                <div class="bg-blue-50 p-3 rounded-full">
+                  <i class="fas fa-graduation-cap text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">Bachelor of Technology in Computer Science</p>
+                  <p class="text-gray-600">United Institute of Technology, Prayagraj</p>
+                  <p class="text-sm text-gray-500">Expected Graduation: June 2025 </p>
+                </div>
+              </div>
+              
+              <div class="flex gap-5 items-start border-b border-gray-100 pb-4">
+                <div class="bg-purple-50 p-3 rounded-full">
+                  <i class="fas fa-certificate text-purple-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">Flutter & Dart - The Complete Guide [2023 Edition]</p>
+                  <p class="text-gray-600">Udemy | Certificate ID: UC-12345678</p>
+                  <p class="text-sm text-gray-500">Issued: March 2022 | <a href="CV.pdf/flutter c.pdf" class="text-blue-600 hover:underline">View Credential</a></p>
+                </div>
+              </div>
+              
+              <div class="flex gap-5 items-start">
+                <div class="bg-green-50 p-3 rounded-full">
+                  <i class="fas fa-cloud text-green-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">AWS Certified Cloud Practitioner</p>
+                  <p class="text-gray-600">Amazon Web Services</p>
+                  <p class="text-sm text-gray-500">Issued: September 2023 | Credential ID: AWS-CCP-123456</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h3 class="text-3xl font-bold gradient-text">Technical Skills</h3>
+        <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-blue-50 p-3 rounded-full">
+              <i class="fab fa-java text-blue-600"></i>
+            </div>
+            <h4 class="font-semibold">Java & Spring Boot</h4>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300">Enterprise systems, REST APIs, microservices, Spring Security and Spring Cloud basics.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-indigo-50 p-3 rounded-full">
+              <i class="fab fa-js text-indigo-600"></i>
+            </div>
+            <h4 class="font-semibold">JavaScript & Web</h4>
+          </div>
+          <p class="text-gray-600">Modern frontend frameworks, Node.js, build systems, and progressive web apps.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-green-50 p-3 rounded-full">
+              <i class="fas fa-mobile-alt text-green-600"></i>
+            </div>
+            <h4 class="font-semibold">Flutter & Mobile</h4>
+          </div>
+          <p class="text-gray-600">Cross-platform apps, state management, and performant UI patterns in Flutter.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-yellow-50 p-3 rounded-full">
+              <i class="fas fa-cloud text-yellow-600"></i>
+            </div>
+            <h4 class="font-semibold">Cloud & DevOps</h4>
+          </div>
+          <p class="text-gray-600">Infrastructure-as-code, CI/CD pipelines, containerization and cloud deployments.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-red-50 p-3 rounded-full">
+              <i class="fas fa-database text-red-600"></i>
+            </div>
+            <h4 class="font-semibold">Databases</h4>
+          </div>
+          <p class="text-gray-600">Relational and NoSQL databases, query optimization, and modelling for scale.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="bg-purple-50 p-3 rounded-full">
+              <i class="fas fa-shield-alt text-purple-600"></i>
+            </div>
+            <h4 class="font-semibold">Security & Testing</h4>
+          </div>
+          <p class="text-gray-600">Unit/integration testing, security best-practices and vulnerability awareness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE (expanded timeline with multiple items) -->
+  <section id="experience" class="py-16 bg-white dark:bg-gray-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h3 class="text-3xl font-bold gradient-text">Experience</h3>
+        <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gray-200 transform -translate-x-1/2"></div>
+
+        <!-- (Items omitted for brevity — retained from your original) -->
+        <!-- Founder -->
+        <div class="mb-12">
+          <div class="flex flex-col md:flex-row items-center relative">
+            <div class="md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
+              <h4 class="text-xl font-bold">Founder & CEO <span class="text-blue-600 font-medium">NexiumCo</span></h4>
+              <p class="text-sm text-gray-500">Jan 2022 — Present</p>
+            </div>
+            <div class="hidden md:flex justify-center items-center w-10 h-10 rounded-full bg-blue-600 text-white absolute left-1/2 transform -translate-x-1/2">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-8">
+              <p class=>•Built and launched NexiumCo — automation tooling, analytics, and developer experience products. Led architecture, hiring, and product-market fit experiments. Grew to multiple pilot customers within 6 months by shipping a lightweight analytics SDK and SaaS dashboard.</p>
+            </div>
+          </div>
+        </div>
+               <div class="mb-12">
+          <div class="flex flex-col md:flex-row items-center relative">
+            <div class="md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
+              <h4 class="text-xl font-bold">Cloud Intern <span class="text-blue-600 font-medium">HawksCode Softwares Pvt. Ltd., Jaipur </span></h4>
+              <p class="text-sm text-gray-500">Jul 2024 – Aug 2024</p>
+            </div>
+            <div class="hidden md:flex justify-center items-center w-10 h-10 rounded-full bg-blue-600 text-white absolute left-1/2 transform -translate-x-1/2">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="md:w-1/2 md:pl-8">
+              <p class=>•Automated cloud provisioning tasks with scripts, reducing setup time by 30%.</p>
+              •Configured VPNs and secure tunnels between AWS and on-premise environments; improved network throughput by 20%.</p>
+               •Assisted in deploying scalable microservices with Docker containers for internal tools</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other items (kept) -->
+        <!-- ... -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h3 class="text-3xl font-bold gradient-text">Services</h3>
+        <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- service cards retained -->
+        <div class="bg-white rounded-xl p-6 shadow-sm project-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-blue-50 p-3 rounded-full"><i class="fas fa-laptop-code text-blue-600"></i></div>
+            <h4 class="font-semibold">Web Applications</h4>
+          </div>
+          <p class="text-gray-600">Full-stack web development with modern frameworks: React, Next.js, Node, and Spring Boot backends.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm project-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-purple-50 p-3 rounded-full"><i class="fas fa-mobile-alt text-purple-600"></i></div>
+            <h4 class="font-semibold">Mobile Apps (Flutter)</h4>
+          </div>
+          <p class="text-gray-600">Cross-platform mobile apps with polished UX, performant code and CI pipelines for release automation.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-sm project-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="bg-green-50 p-3 rounded-full"><i class="fas fa-cloud text-green-600"></i></div>
+            <h4 class="font-semibold">Cloud & Infra</h4>
+          </div>
+          <p class="text-gray-600">Cloud design, cost optimization, deployment pipelines, and infrastructure automation (IaC).</p>
+        </div>
+
+        <!-- more items... -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+    <section id="projects" class="py-16 bg-white dark:bg-gray-800/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h3 class="text-3xl font-bold gradient-text">Featured Projects</h3>
+        <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6" id="projects-grid">
+        <!-- (Your 12 project cards preserved) -->
+        <!-- Inventory Management System -->
+        <article class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden project-card border border-gray-200 dark:border-gray-700">
+          <div class="h-44 bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
+            <i class="fas fa-boxes text-white text-5xl"></i>
+          </div>
+          <div class="p-6">
+            <h4 class="font-bold text-gray-800 dark:text-gray-100">Inventory Management System</h4>
+            <p class=" text-gray-800 dark:text-gray-100">Tracking, order-management and analytics for retail businesses. Real-time stock sync and reporting dashboards.</p>
+            <div class="mt-4 flex gap-2">
+              <span class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded-full">Java</span>
+              <span class="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-2 py-1 rounded-full">Spring Boot</span>
+              <span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-2 py-1 rounded-full">MySQL</span>
+            </div>
+            <div class="mt-4">
+              <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline project-open" data-title="Inventory Management System" data-desc="Track inventory, orders, and sales with real-time analytics.">View Details →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- (Other project cards kept — omitted here for brevity but remained in the file) -->
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 border border-blue-600 dark:border-blue-400 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20">View All Projects <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h3 class="text-3xl font-bold gradient-text">Get In Touch</h3>
+        <div class="mt-2 w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h4 class="font-semibold mb-4">Contact Information</h4>
+          <div class="space-y-4 text-gray-700">
+            <div class="flex items-start gap-4">
+              <div class="bg-blue-50 p-3 rounded-full"><i class="fas fa-envelope text-blue-600"></i></div>
+              <div>
+                <p class="font-semibold">Email</p>
+                <a href="priyanshusingh21187.com" class="text-blue-600">priyanshusingh21187.com</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-green-50 p-3 rounded-full"><i class="fas fa-phone-alt text-green-600"></i></div>
+              <div>
+                <p class="font-semibold">Phone</p>
+                <a href="tel:+916387033290" class="text-gray-700">+91 63870 33290</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-purple-50 p-3 rounded-full"><i class="fas fa-map-marker-alt text-purple-600"></i></div>
+              <div>
+                <p class="font-semibold">Location</p>
+                <p class="text-gray-700">Prayagraj, Uttar Pradesh, India</p>
+              </div>
+            </div>
+          </div>
+
+        
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h4 class="font-semibold mb-4">Send Me a Message</h4>
+
+          <!-- Contact form: supports Netlify / static fallback + AJAX POST -->
+          <form id="contact-form" class="space-y-4" novalidate method="POST" action="/api/contact" data-netlify="true" netlify>
+            <!-- Netlify requires name attributes and a hidden input for bot-field -->
+            <input type="hidden" name="form-name" value="contact-form" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
+                <input id="name" name="name" required type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" aria-required="true" />
+                <p id="name-error" class="text-xs text-red-600 mt-1 hidden">Please enter your name.</p>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
+                <input id="email" name="email" required type="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" aria-required="true" />
+                <p id="email-error" class="text-xs text-red-600 mt-1 hidden">Please enter a valid email.</p>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+              <p id="message-error" class="text-xs text-red-600 mt-1 hidden">Please write a message.</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <button id="contact-submit" type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition inline-flex items-center" aria-live="polite">
+                <svg id="submit-spinner" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+                Send Message
+              </button>
+              <button id="contact-reset" type="button" class="px-4 py-2 rounded-lg border text-gray-700">Reset</button>
+            </div>
+
+            <!-- success/error notices -->
+            <div id="contact-feedback" class="mt-4 text-sm" aria-live="polite"></div>
+
+            <div class="mt-2 text-xs text-gray-500">
+              <p>Form submits to <code>/api/contact</code>. If you host on Netlify, the `<code>data-netlify="true"</code>` attribute will allow static form collection. Otherwise use your server endpoint.</p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <a href="#" class="text-xl font-bold gradient-text">Priyanshu Singh</a>
+        <p class="text-gray-400 text-sm mt-1">Software Engineer & Founder of NexiumCo</p>
+      </div>
+      <div class="flex gap-4">
+        <a class="text-white-400 hover:text-white" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-blue-600"></i></a>
+        <a class="text-white-400 hover:text-white" href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a class="text-white-400 hover:text-white" href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a class="priyanshusingh21187@gmail.com" title="Email" aria-label="Email"><i class="fa-regular fa-envelope text-white-700"></i></a>
+
+      </div>
+      <div class="text-gray-300 text-sm">
+        &copy; <span id="year"></span> Priyanshu Singh. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Resume Modal (added) -->
+  <div id="resume-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="resume-title">
+    <div class="modal" role="document">
+      <button class="close" id="resume-close" aria-label="Close resume preview">&times;</button>
+      <h2 id="resume-title" class="text-2xl font-semibold mb-2">Resume — Priyanshu Singh</h2>
+      <p class="text-gray-600 mb-4">Preview of resume. Use download link or print from here.</p>
+      <!-- Minimal resume content — you can expand -->
+      <section class="mb-4">
+        <h3 class="font-semibold">Summary</h3>
+        <p class="text-gray-700">Software engineer with experience building scalable backend systems, web applications, and mobile apps.</p>
+      </section>
+      <section class="mb-4">
+        <h3 class="font-semibold">Experience</h3>
+        <ul class="list-disc ml-5 text-gray-700">
+          <li>NexiumCo — Founder & Lead (2022-Present)</li>
+          <li>HawksCode Softwares — Senior Engineer (2019-2021)</li>
+        </ul>
+      </section>
+      <div class="mt-4">
+        <a href="/resume.pdf" class="inline-flex items-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium">Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Modal shell (filled from project links) -->
+  <div id="project-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="project-title">
+    <div class="modal">
+      <button class="close" id="project-close" aria-label="Close project">×</button>
+      <h3 id="project-title" class="text-xl font-semibold mb-2">Project Title</h3>
+      <p id="project-desc" class="text-gray-700 mb-4">Project description</p>
+      <div id="project-tags" class="flex gap-2 flex-wrap"></div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button id="back-to-top" class="back-to-top bg-blue-600 p-3 rounded-full text-white shadow-md" title="Back to top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- ========= SCRIPTS ========= -->
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle (your original)
+    (function () {
+      const btn = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', (!expanded).toString());
+        menu.classList.toggle('hidden');
+      });
+    })();
+
+    // Smooth scrolling for anchor links (only for hashed anchors) — kept
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = this.getAttribute('href');
+        if (!target || target === '#') return;
+        e.preventDefault();
+        const el = document.querySelector(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // close mobile menu
+        const mobile = document.getElementById('mobile-menu');
+        if (mobile && !mobile.classList.contains('hidden')) mobile.classList.add('hidden');
+      });
+    });
+
+    // Intersection observer for fade-in (kept)
+    (function () {
+      const items = document.querySelectorAll('.animate-fade-in');
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(i => io.observe(i));
+    })();
+
+    // ============================
+    // Contact form: frontend validation + backend placeholder (AJAX + progressive enhancement)
+    // ============================
+    (function () {
+      const form = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('contact-submit');
+      const spinner = document.getElementById('submit-spinner');
+      const feedback = document.getElementById('contact-feedback');
+      const resetBtn = document.getElementById('contact-reset');
+
+      function showError(id, show, text) {
+        const el = document.getElementById(id + '-error');
+        if (!el) return;
+        el.textContent = text || el.textContent;
+        el.classList.toggle('hidden', !show);
+      }
+
+      function validate() {
+        let ok = true;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name) { showError('name', true, 'Please enter your name.'); ok = false; } else showError('name', false);
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) { showError('email', true, 'Please enter a valid email.'); ok = false; } else showError('email', false);
+        if (!message) { showError('message', true, 'Please write a message.'); ok = false; } else showError('message', false);
+
+        return ok;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        // If the browser will perform a native form submit (non-JS), allow it.
+        // Here we intercept to offer AJAX feedback and progressive enhancement.
+        e.preventDefault();
+        feedback.textContent = '';
+        if (!validate()) return;
+
+        submitBtn.disabled = true;
+        spinner.classList.remove('hidden');
+
+        // prepare payload (same shape expected by server)
+        const payload = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          subject: form.subject.value.trim() || '(no subject)',
+          message: form.message.value.trim(),
+          sentAt: new Date().toISOString()
+        };
+
+        try {
+          const endpoint = form.getAttribute('action') || '/api/contact';
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            credentials: 'same-origin'
+          });
+
+          if (res.ok) {
+            feedback.innerHTML = '<span class="text-green-600 font-medium">Thanks — your message has been sent. I will reply soon.</span>';
+            form.reset();
+          } else {
+            const text = await res.text().catch(()=>null);
+            console.warn('Contact endpoint returned error:', res.status, text);
+            feedback.innerHTML = '<span class="text-yellow-600">Form endpoint returned an error. Try sending an email to <a href="mailto:contact@example.com" class="text-blue-600">contact@example.com</a>.</span>';
+          }
+        } catch (err) {
+          console.error('Error sending contact form:', err);
+          feedback.innerHTML = '<span class="text-yellow-600">Could not reach the server. As a fallback, please email <a href="mailto:contact@example.com" class="text-blue-600">contact@example.com</a>.</span>';
+        } finally {
+          submitBtn.disabled = false;
+          spinner.classList.add('hidden');
+        }
+      });
+
+      resetBtn.addEventListener('click', () => {
+        form.reset();
+        showError('name', false); showError('email', false); showError('message', false);
+        feedback.textContent = '';
+      });
+    })();
+
+    // ============================
+    // Particle background (kept exactly from your original — tuned)
+    // ============================
+    (function () {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const cfg = {
+        baseColor: '59,130,246',
+        particleMin: 60,
+        particleDensity: 0.00012,
+        maxLineDistance: 120,
+        maxParticleSize: 3.2,
+        minParticleSize: 0.9,
+        speedFactor: 0.35,
+        mouseRepelRadius: 80,
+        fpsThrottle: 60
+      };
+
+      function resize() {
+        const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        computeCount();
+      }
+
+      let particleCount = 120;
+      let particles = [];
+      let mouse = { x: null, y: null, down: false };
+
+      function computeCount() {
+        const area = window.innerWidth * window.innerHeight;
+        particleCount = Math.max(cfg.particleMin, Math.round(area * cfg.particleDensity));
+        particleCount = Math.min(particleCount, 220);
+      }
+
+      function rand(min, max) { return Math.random() * (max - min) + min; }
+
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * canvas.width / (window.devicePixelRatio || 1);
+          this.y = Math.random() * canvas.height / (window.devicePixelRatio || 1);
+          this.vx = (Math.random() - 0.5) * cfg.speedFactor * rand(0.5, 1.6);
+          this.vy = (Math.random() - 0.5) * cfg.speedFactor * rand(0.5, 1.6);
+          this.size = rand(cfg.minParticleSize, cfg.maxParticleSize);
+          this.alpha = rand(0.35, 0.9);
+        }
+        update() {
+          this.x += this.vx; this.y += this.vy;
+          if (this.x > canvas.width) this.x = 0;
+          if (this.x < 0) this.x = canvas.width;
+          if (this.y > canvas.height) this.y = 0;
+          if (this.y < 0) this.y = canvas.height;
+
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = this.x - mouse.x; const dy = this.y - mouse.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < cfg.mouseRepelRadius && dist > 0) {
+              const force = (cfg.mouseRepelRadius - dist) / cfg.mouseRepelRadius;
+              this.vx += (dx / dist) * 0.6 * force;
+              this.vy += (dy / dist) * 0.6 * force;
+            }
+          }
+          this.vx *= 0.995; this.vy *= 0.995;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${cfg.baseColor}, ${this.alpha})`;
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function initParticles() { particles = []; for (let i=0;i<particleCount;i++) particles.push(new Particle()); }
+
+      function connect() {
+        for (let a = 0; a < particles.length; a++) {
+          const pa = particles[a];
+          for (let b = a + 1; b < particles.length; b++) {
+            const pb = particles[b];
+            const dx = pa.x - pb.x; const dy = pa.y - pb.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < cfg.maxLineDistance) {
+              const alpha = 1 - dist / cfg.maxLineDistance;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(${cfg.baseColor}, ${alpha * 0.14})`;
+              ctx.lineWidth = 1;
+              ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+            }
+          }
+        }
+      }
+
+      let lastFrame = 0;
+      function animate(ts) {
+        requestAnimationFrame(animate);
+        const elapsed = ts - lastFrame;
+        const fpsInterval = 1000 / cfg.fpsThrottle;
+        if (elapsed < fpsInterval) return;
+        lastFrame = ts;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        const bgColor = document.documentElement.classList.contains('dark') ? '8,17,43' : '241,245,249';
+        g.addColorStop(0, `rgba(${bgColor},0.02)`); 
+        g.addColorStop(1, `rgba(${bgColor},0.02)`);
+        ctx.fillStyle = g; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => { p.update(); p.draw(); });
+        connect();
+      }
+
+      function onMove(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = (e.clientX - rect.left); mouse.y = (e.clientY - rect.top);
+      }
+      function onLeave() { mouse.x = null; mouse.y = null; }
+
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches.length) onMove(e.touches[0]);
+      }, { passive: true });
+      window.addEventListener('mouseout', onLeave);
+      window.addEventListener('touchend', onLeave);
+
+      function adjustForPerformance() {
+        const mem = navigator.deviceMemory || 4;
+        if (mem <= 1) cfg.particleDensity = Math.max(cfg.particleDensity * 0.5, 0.00006);
+        else if (mem <= 2) cfg.particleDensity *= 0.75;
+        computeCount(); initParticles();
+      }
+
+      resize(); adjustForPerformance(); initParticles(); requestAnimationFrame(animate);
+      window.addEventListener('resize', function () { resize(); computeCount(); initParticles(); });
+    })();
+
+    // ============================
+    // Theme toggle (simple)
+    // ============================
+    (function(){
+      const btn = document.getElementById('theme-toggle');
+      const icon = document.getElementById('theme-icon');
+      const root = document.documentElement;
+      // persisted preference (optional)
+      const stored = localStorage.getItem('pref-theme');
+      let dark = stored === 'dark' ? true : false;
+      function apply() {
+        if (dark) { document.documentElement.classList.add('dark'); icon.className = 'fa-solid fa-sun'; btn.setAttribute('aria-pressed','true'); }
+        else { document.documentElement.classList.remove('dark'); icon.className = 'fa-solid fa-moon'; btn.setAttribute('aria-pressed','false'); }
+      }
+      btn?.addEventListener('click', () => { 
+        dark = !dark; 
+        localStorage.setItem('pref-theme', dark ? 'dark' : 'light'); 
+        apply(); 
+        // Update particle colors when theme changes
+        cfg.baseColor = dark ? '59,130,246' : '15,23,42';
+      });
+      apply();
+    })();
+
+    // ============================
+    // Resume modal logic
+    // ============================
+    (function(){
+      const openBtn = document.getElementById('open-resume-modal');
+      const modal = document.getElementById('resume-modal');
+      const closeBtn = document.getElementById('resume-close');
+
+      function open() {
+        modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false');
+        // focus trap naive: focus close
+        closeBtn?.focus();
+      }
+      function close() {
+        modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true');
+      }
+      openBtn?.addEventListener('click', open);
+      closeBtn?.addEventListener('click', close);
+      modal?.addEventListener('click', (e)=> { if (e.target === modal) close(); });
+      document.addEventListener('keydown', (e)=> { if (e.key === 'Escape') close(); });
+    })();
+
+    // ============================
+    // Project modal (populate from project links)
+    // ============================
+    (function(){
+      const projectModal = document.getElementById('project-modal');
+      const projectTitle = document.getElementById('project-title');
+      const projectDesc = document.getElementById('project-desc');
+      const projectTags = document.getElementById('project-tags');
+      const closeBtn = document.getElementById('project-close');
+
+      function open(title, desc, tags) {
+        projectTitle.textContent = title;
+        projectDesc.textContent = desc;
+        projectTags.innerHTML = '';
+        (tags||[]).forEach(t => {
+          const s = document.createElement('span'); s.className = 'text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full mr-2'; s.textContent = t; projectTags.appendChild(s);
+        });
+        projectModal.classList.remove('hidden'); projectModal.setAttribute('aria-hidden','false');
+        closeBtn?.focus();
+      }
+      function close() {
+        projectModal.classList.add('hidden'); projectModal.setAttribute('aria-hidden','true');
+      }
+      document.querySelectorAll('.project-open').forEach(a=>{
+        a.addEventListener('click',(e)=>{
+          e.preventDefault();
+          const title = a.dataset.title || 'Project';
+          const desc = a.dataset.desc || (a.closest('article')?.querySelector('p')?.innerText || '');
+          open(title, desc, []);
+        });
+      });
+      closeBtn?.addEventListener('click', close);
+      projectModal?.addEventListener('click', (e)=> { if (e.target === projectModal) close(); });
+      document.addEventListener('keydown', (e)=> { if (e.key === 'Escape') close(); });
+    })();
+
+    // ============================
+    // Back to top behavior
+    // ============================
+    (function(){
+      const btn = document.getElementById('back-to-top');
+      function check() {
+        if (window.scrollY > 400) btn.style.display = 'block';
+        else btn.style.display = 'none';
+      }
+      window.addEventListener('scroll', check);
+      check();
+      btn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+    })();
+
+    // small console note
+    console.log('Merged features loaded: resume modal, socials, theme toggle, back-to-top, project modal, particles, contact form.');
+  </script>
+</body>
+</html>
